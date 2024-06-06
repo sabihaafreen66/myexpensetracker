@@ -1,7 +1,8 @@
+// src/components/Login.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebaseConfig';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -14,14 +15,11 @@ const Login = () => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             alert("User logged in successfully!");
-            console.log(userCredential);
             setError(null);
-            localStorage.setItem('authToken', userCredential.user.accessToken); // Store the token
-            navigate('/welcome'); // Redirect to the welcome screen
+            navigate('/welcome');
         } catch (error) {
             setError(error.message);
             console.error(error);
-            alert(error.message); // Alert on incorrect login
         }
     };
 
@@ -46,11 +44,11 @@ const Login = () => {
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button type="submit">Login</button>
             </form>
-            <div className="forgot-password-link">
-                <Link to="/forgot-password">Forgot Password?</Link>
+            <div className="forgot-password">
+                <a href="#">Forgot Password?</a>
             </div>
             <div className="signup-link">
-                <Link to="/signup">Don't have an account? Signup</Link>
+                <a href="/signup">Don't have an account? Signup</a>
             </div>
         </div>
     );

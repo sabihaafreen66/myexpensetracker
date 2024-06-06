@@ -1,13 +1,11 @@
-// src/components/Welcome.js
+// src/components/Profile.js
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 
-const Welcome = () => {
+const Profile = () => {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -21,23 +19,21 @@ const Welcome = () => {
         fetchProfile();
     }, []);
 
-    const isProfileIncomplete = !profile || !profile.displayName || !profile.photoURL;
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="container">
-            <h2>Welcome to Expense Tracker</h2>
-            {loading && <p>Loading...</p>}
-            {isProfileIncomplete && (
-                <p>Your profile is incomplete. <button onClick={() => navigate('/complete-profile')}>Click here to complete</button></p>
-            )}
-            {!isProfileIncomplete && !loading && (
+            <h2>User Profile</h2>
+            {profile && (
                 <div>
-                    <p>Welcome, {profile.displayName}!</p>
-                    {/* Add other content for the welcome page */}
+                    <p><strong>Display Name:</strong> {profile.displayName}</p>
+                    <p><strong>Phone Number:</strong> {profile.phoneNumber}</p>
                 </div>
             )}
         </div>
     );
 };
 
-export default Welcome;
+export default Profile;
