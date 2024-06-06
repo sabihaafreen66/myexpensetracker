@@ -7,7 +7,6 @@ import { doc, setDoc } from 'firebase/firestore';
 const CompleteProfile = () => {
     const [displayName, setDisplayName] = useState('');
     const [photoURL, setPhotoURL] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -17,7 +16,7 @@ const CompleteProfile = () => {
             const user = auth.currentUser;
             if (user) {
                 await updateProfile(user, { displayName, photoURL });
-                await setDoc(doc(db, "users", user.uid), { photoURL, phoneNumber }, { merge: true });
+                await setDoc(doc(db, "users", user.uid), { photoURL }, { merge: true });
                 alert("Profile updated successfully!");
                 setError(null);
                 navigate('/welcome');
@@ -49,13 +48,7 @@ const CompleteProfile = () => {
                     onChange={(e) => setPhotoURL(e.target.value)}
                     required
                 />
-                <input
-                    type="text"
-                    placeholder="Phone Number"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    required
-                />
+               
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button type="submit">Update</button>
             </form>
