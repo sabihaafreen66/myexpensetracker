@@ -1,4 +1,4 @@
-.container {
+ .container {
   max-width: 500px;
   margin: 50px auto;
   padding: 20px;
@@ -45,4 +45,46 @@ a:hover {
 
 .signup-link {
   margin: 10px 0;
+} 
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.dark-mode {
+  background-color: #333;
+  color: #fff;
+} 
+/* Ensure the dark-mode class is applied to cover the entire application */
+body.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+body.dark-mode .container {
+  border-color: #555;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode input {
+  border-color: #555;
+  background-color: #444;
+  color: #fff;
+}
+
+body.dark-mode button {
+  background-color: #444;
+  color: #fff;
+}
+
+body.dark-mode button:hover {
+  background-color: #555;
+}
+
+body.dark-mode a {
+  color: #4aa3ff;
+}
+
+body.dark-mode a:hover {
+  color: #1a90ff;
 }
